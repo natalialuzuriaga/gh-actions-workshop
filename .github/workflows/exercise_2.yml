@@ -1,0 +1,8 @@
+# Create a workflow that generates a repository health report to MAINTENANCE_LOG.md:
+# - Runs the repository health report script located at actions/repo_health_report.sh.
+# - Uses peter-evans/create-pull-request@v7 to commit changes and create a PR to the repository
+# - Read through docs!
+# - Is manually run
+
+
+name: Repository Health Report
