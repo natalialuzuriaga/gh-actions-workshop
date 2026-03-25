@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Health check on repo
-        uses: ./actions/repo_health_report.sh
+        run: ./actions/repo_health_report.sh
 
       - name: Create new pull request
         uses: peter-evans/create-pull-request@v7
