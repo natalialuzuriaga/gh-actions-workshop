@@ -17,14 +17,15 @@ on:
         type: number
 
 jobs:
-  name: "Job 1: Calculate hypothenuse"
-  runs-on: ubuntu-latest
-  outputs:
-    hypothenuse: ${{ steps.hypothenuse.outputs.hypothenuse }}
-  steps:
-    - name: Calculate hypothenuse
-      id: hypothenuse
-      run: |
-        HYPOTHENUSE=$(( (${{ inputs.side_1 }} ** 2 + ${{ inputs.side_2 }} ** 2) ** 0.5  ))
-        echo "hypothenuse=$HYPOTHENUSE" >> $HYPOTHENUSE
-        echo "Hypothenuse: $HYPOTHENUSE"
+  job:
+    name: "Job 1: Calculate hypothenuse"
+    runs-on: ubuntu-latest
+    outputs:
+      hypothenuse: ${{ steps.hypothenuse.outputs.hypothenuse }}
+    steps:
+      - name: Calculate hypothenuse
+        id: hypothenuse
+        run: |
+          HYPOTHENUSE=$(( (${{ inputs.side_1 }} ** 2 + ${{ inputs.side_2 }} ** 2) ** 0.5  ))
+          echo "hypothenuse=$HYPOTHENUSE" >> $HYPOTHENUSE
+          echo "Hypothenuse: $HYPOTHENUSE"
