@@ -5,3 +5,36 @@
 # - Design this using 2+ jobs where you are moving data between jobs using outputs and needs
 
 name: Calculate the Hypotenuse
+
+on: 
+  workflow_dispatch:
+    inputs:
+      leg-a:
+        description: 'Length of Side A'
+        type: number
+        required: true
+      leg-b:
+        description: 'Length of Side b'
+        type: number
+        required: true
+    outputs:
+      hypotenuse:
+        description: "Length of side C"
+        value: ${{}}
+    
+
+
+jobs:
+  calculate-hypotenuse:
+    runs-on: ubuntu-latest
+    env:
+          LEG-A: ${{ inputs.leg-a }}
+          LEG-B: ${{ inputs.leg-b }}
+    steps:
+      - name: Calculate Hypotenuse
+        id: calc
+        # run: | got lost on this part lol
+  
+  print-result:
+    
+    
