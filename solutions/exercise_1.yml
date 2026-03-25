@@ -1,0 +1,19 @@
+# Fill in the blanks to create a workflow that:
+# - Runs upon reopened pull requests that include changes to .md files
+# - Uses macOS as the runner environment
+
+name: My first workflow!
+
+on: 
+  pull_request:
+    types: 
+      - reopened
+    paths:
+      - "**/*.md"
+jobs:
+    my-first-job:
+        runs-on: macos-latest
+        steps:
+            - name: Run workflow
+              run: echo "You successfully ran your first workflow!"
+            
