@@ -8,6 +8,8 @@ on:
     pull_request:
         paths:
             - '**.md'
+        types:
+            - reopened
 
 jobs:
     my-first-job:

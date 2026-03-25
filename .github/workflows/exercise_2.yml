@@ -7,7 +7,7 @@
 name: Calculate the Hypotenuse
 
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
         length:
             default: 10

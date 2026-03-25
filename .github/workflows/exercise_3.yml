@@ -6,7 +6,7 @@
 name: Repository Health Report
 
 on:
-  workflow_call
+  workflow_dispatch:
 
 jobs:
   create-pull-request:
