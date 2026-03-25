@@ -5,3 +5,61 @@
 # - Design this using 2+ jobs where you are moving data between jobs using outputs and needs
 
 name: Calculate the Hypotenuse
+
+on:
+  workflow_dispatch:
+    inputs:
+      side_a:
+        description: "Length of side A"
+        required: true
+        default: "3"
+      side_b:
+        description: "Length of side B"
+        required: true
+        default: "4"
+  push:
+    branches:
+      - exercise-2
+
+jobs:
+  gather-inputs:
+    runs-on: macos-latest
+    outputs:
+      side_a: ${{ steps.set-outputs.outputs.side_a }}
+      side_b: ${{ steps.set-outputs.outputs.side_b }}
+    steps:
+      - name: Set side inputs as outputs
+        id: set-outputs
+        run: |
+          SIDE_A="${{ github.event.inputs.side_a || '3' }}"
+          SIDE_B="${{ github.event.inputs.side_b || '4' }}"
+          echo "side_a=$SIDE_A" >> $GITHUB_OUTPUT
+          echo "side_b=$SIDE_B" >> $GITHUB_OUTPUT
+          echo "Side A: $SIDE_A"
+          echo "Side B: $SIDE_B"
+
+  calculate:
+    runs-on: macos-latest
+    needs: gather-inputs
+    outputs:
+      hypotenuse: ${{ steps.compute.outputs.hypotenuse }}
+    steps:
+      - name: Compute hypotenuse
+        id: compute
+        run: |
+          SIDE_A="${{ needs.gather-inputs.outputs.side_a }}"
+          SIDE_B="${{ needs.gather-inputs.outputs.side_b }}"
+          HYPOTENUSE=$(python3 -c "import math; print(round(math.hypot($SIDE_A, $SIDE_B), 4))")
+          echo "hypotenuse=$HYPOTENUSE" >> $GITHUB_OUTPUT
+
+  print-result:
+    runs-on: macos-latest
+    needs: calculate
+    steps:
+      - name: Print hypotenuse
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "  Side A:      ${{ needs.calculate.outputs.hypotenuse && github.event.inputs.side_a || '3' }}"
+          echo "  Side B:      ${{ github.event.inputs.side_b || '4' }}"
+          echo "  Hypotenuse:  ${{ needs.calculate.outputs.hypotenuse }}"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
