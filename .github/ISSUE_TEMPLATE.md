@@ -6,3 +6,4 @@ labels: 'usdc'
 assignees: '@natalialuzuriaga'
 ---
 Hello from the SWE fellows!!!!
+Hi SWE fellows!!!!
