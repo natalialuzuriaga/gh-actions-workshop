@@ -26,6 +26,6 @@ jobs:
       - name: Calculate hypothenuse
         id: hypothenuse
         run: |
-          HYPOTHENUSE=$(( ${{ inputs.side_1 }} ** 2 + ${{ inputs.side_2 }} ** 2  ))
-          echo "hypothenuse=sqrt($HYPOTHENUSE") >> $HYPOTHENUSE
+          HYPOTHENUSE=$( sqrt(${{ inputs.side_1 }} ** 2 + ${{ inputs.side_2 }} ** 2)  )
+          echo "hypothenuse=$HYPOTHENUSE >> $HYPOTHENUSE"
           echo "Hypothenuse: $HYPOTHENUSE"
