@@ -4,3 +4,16 @@
 # - Is manually run
 
 name: Repository Health Report
+
+on:
+  workflow_call
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Health check on repo
+        uses: actions/repo_health_report.sh@latest
+
+      - name: Create new pull request
+        uses: peter-evans/create-pull-request@v7
