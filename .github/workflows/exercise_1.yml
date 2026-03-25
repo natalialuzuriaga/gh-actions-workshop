@@ -5,11 +5,26 @@
 name: My first workflow!
 
 on: 
+    pull_request:
+        types: [opened, reopened]
+        paths:
+        - '**/*.md'
+        
+        branches:
+            - main
+            - exercise-1
 
 jobs:
     my-first-job:
-        runs-on:
+        runs-on: macos-latest
         steps:
-            - name: Run workflow
-              run: echo "You successfully ran your first workflow!"
+            - name: Checkout repository
+              uses: actions/checkout@v4
+              with:
+                fetch-depth: 0
+
+            - name: List changed markdown files
+              run: |
+                echo "Markdown files changed in this PR:"
+                git diff --name-only origin/${{ github.base_ref }}...HEAD | grep '\.md$' || echo "(none found)"
             
