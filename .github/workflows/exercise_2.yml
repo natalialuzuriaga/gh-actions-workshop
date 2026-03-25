@@ -21,6 +21,9 @@ on:
 jobs:
   get-length:
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@latest
     outputs:
         length: ${{ inputs.length }}
         width: ${{ inputs.width }}
