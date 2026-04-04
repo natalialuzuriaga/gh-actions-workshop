@@ -5,3 +5,35 @@
 # - Design this using 2+ jobs where you are moving data between jobs using outputs and needs
 
 name: Calculate the Hypotenuse
+
+on:
+  workflow_dispatch:
+    inputs:
+        length:
+            default: 10
+            required: false
+            type: number
+        width:
+            default: 10
+            required: false
+            type: number
+
+jobs:
+  get-length:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+    outputs:
+        length: ${{ inputs.length }}
+        width: ${{ inputs.width }}
+
+  calculate-hypothenuse:
+    runs-on: ubuntu-latest
+    needs: get-length
+    steps:
+      - name: Print hypothenuse
+        env:
+            LENGTH: ${{ needs.get-length.outputs.length }}
+            WIDTH: ${{ needs.get-length.outputs.width }}
+        run: python -c "import sys,math; a,b=map(float,sys.argv[1:3]); print(math.hypot(a,b))" $LENGTH $WIDTH
